@@ -14,8 +14,10 @@ import pickle
 from langchain.retrievers.document_compressors.cross_encoder_rerank import CrossEncoderReranker
 from langchain_community.cross_encoders import HuggingFaceCrossEncoder
 
+
 logging.basicConfig(level=logging.ERROR)
 
+######## Naive RAG ########
 
 class NaiveRAG:
     def __init__(self, chroma_path, embedding_function, llm_model, prompt_template):
@@ -23,12 +25,12 @@ class NaiveRAG:
         try:
             self.embedding_model = embedding_function
         except Exception as e:           
-            logging.error(f"Error initializing Embeddings: {e}")
+            logging.error(f"Error initializing embedding model: {e}")
             exit(1)
         try:
             self.llm_model = llm_model     
         except Exception as e:
-            logging.error(f"Error initializing AI model: {e}")    
+            logging.error(f"Error initializing llm: {e}")    
             exit(1)
         
         self.db = Chroma(persist_directory=self.chroma_path, embedding_function=self.embedding_model)
@@ -57,9 +59,9 @@ class NaiveRAG:
 class ParentDocumentRetriever(BaseRetriever):
     """Retriever for retrieving related documents based on document ID and sequence."""
 
-    client: Chroma = Field(...)  # Define `client` with Field so that Pydantic can recognize it as a field.
+    client: Chroma = Field(...)          # Define `client` with Field so that Pydantic can recognize it as a field.
     window_size: int = Field(default=2)  # Add type hints and defaults for other fields
-    k: int = Field(default=3)
+    k: int = Field(default=3)            # Add type hints and defaults for other fields    
 
     def __init__(self, client: Chroma, window_size: int = 2, k: int = 3):
         super().__init__(client=client, window_size=window_size, k=k)  # Initialize Pydantic fields
@@ -122,12 +124,12 @@ class ParentRetriver:
         try:
             self.embedding_model = embedding_function
         except Exception as e:           
-            logging.error(f"Error initializing GoogleGenerativeAIEmbeddings: {e}")
+            logging.error(f"Error initializing embedding model: {e}")
             exit(1)
         try:
             self.llm_model = llm_model     
         except Exception as e:
-            logging.error(f"Error initializing Google Generative AI model: {e}")    
+            logging.error(f"Error initializing llm model: {e}")    
             exit(1)
         
         self.db = Chroma(persist_directory=self.chroma_path, embedding_function=self.embedding_model)
@@ -161,12 +163,12 @@ class MultiQuery:
         try:
             self.embedding_model = embedding_function
         except Exception as e:           
-            logging.error(f"Error initializing GoogleGenerativeAIEmbeddings: {e}")
+            logging.error(f"Error initializing embedding model: {e}")
             exit(1)
         try:
             self.llm_model = llm_model     
         except Exception as e:
-            logging.error(f"Error initializing Google Generative AI model: {e}")    
+            logging.error(f"Error initializing llm model: {e}")    
             exit(1)
         
         self.db = Chroma(persist_directory=self.chroma_path, embedding_function=self.embedding_model)
@@ -198,12 +200,12 @@ class ParentDocumentRetrieverwithMultiQuery:
         try:
             self.embedding_model = embedding_function
         except Exception as e:           
-            logging.error(f"Error initializing GoogleGenerativeAIEmbeddings: {e}")
+            logging.error(f"Error initializing embedding model: {e}")
             exit(1)
         try:
             self.llm_model = llm_model     
         except Exception as e:
-            logging.error(f"Error initializing Google Generative AI model: {e}")    
+            logging.error(f"Error initializing llm model: {e}")    
             exit(1)
         
         self.db = Chroma(persist_directory=self.chroma_path, embedding_function=self.embedding_model)
@@ -228,7 +230,7 @@ class ParentDocumentRetrieverwithMultiQuery:
     
 
 
-    ######## Ensemble Retrieving ########    
+######## Hybrid Search / Ensemble Retriever ########    
     
 class EnsembleRetrieving:
     def __init__(self, chroma_path, embedding_function, llm_model, prompt_template, k:int=3, chroma_path_2="bm25",chroma_path_3 = None, reranker=False):
@@ -239,12 +241,12 @@ class EnsembleRetrieving:
         try:
             self.embedding_model = embedding_function
         except Exception as e:           
-            logging.error(f"Error initializing Embeddings: {e}")
+            logging.error(f"Error initializing embedding model: {e}")
             exit(1)
         try:
             self.llm_model = llm_model     
         except Exception as e:
-            logging.error(f"Error initializing AI model: {e}")    
+            logging.error(f"Error initializing llm model {e}")    
             exit(1)
         self.reranker = reranker
             
@@ -314,12 +316,12 @@ class Reranker:
         try:
             self.embedding_model = embedding_function
         except Exception as e:           
-            logging.error(f"Error initializing GoogleGenerativeAIEmbeddings: {e}")
+            logging.error(f"Error initializing embedding model: {e}")
             exit(1)
         try:
             self.llm_model = llm_model     
         except Exception as e:
-            logging.error(f"Error initializing Google Generative AI model: {e}")    
+            logging.error(f"Error initializing llm model: {e}")    
             exit(1)
         
         self.db = Chroma(persist_directory=self.chroma_path, embedding_function=self.embedding_model)
@@ -335,7 +337,7 @@ class Reranker:
         else:
             self.retriever = self.db.as_retriever(search_kwargs={"k": self.k})
         
-        self.model = HuggingFaceCrossEncoder(model_name="BAAI/bge-reranker-large")
+        self.model = HuggingFaceCrossEncoder(model_name="BAAI/bge-reranker-large")  # Reranker model
         self.compressor = CrossEncoderReranker(model=self.model)
         self.compression_retriever = ContextualCompressionRetriever(base_compressor=self.compressor, base_retriever=self.retriever)
         
@@ -357,7 +359,7 @@ class Reranker:
         return rag_chain
 
 
-##### Ensemble / Recursive + Parend Documetn Retriever #####
+##### Hybrid Search (Ensemble) / Recursive + Parent Document Retriever + (Semantic) #####
 
 class EnsembleParentDocumentRetriever:  
     """
@@ -373,12 +375,12 @@ class EnsembleParentDocumentRetriever:
         try:
             self.embedding_model = embedding_function
         except Exception as e:           
-            logging.error(f"Error initializing Embeddings: {e}")
+            logging.error(f"Error initializing embedding model: {e}")
             exit(1)
         try:
             self.llm_model = llm_model     
         except Exception as e:
-            logging.error(f"Error initializing AI model: {e}")    
+            logging.error(f"Error initializing llm model: {e}")    
             exit(1)
         self.reranker = reranker
         self.multi_query = multi_query
