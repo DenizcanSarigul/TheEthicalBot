@@ -47,7 +47,7 @@ Question:
 """
 
 
-####This is the prompt template that was used for Flexible Prompt evaluation.
+####This is the prompt template that was used for Flexible/Less restrictive Prompt evaluation.
 
 #PROMPT_TEMPLATE = """
 #You are a specialized assistant designed to answer ethical questions using insights from the Nicene and Post-Nicene Fathers, 
