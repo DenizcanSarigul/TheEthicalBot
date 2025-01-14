@@ -4,6 +4,11 @@ This repository contains the implementation and code for the thesis titled *'Rei
 
 *In this study, the knowledge base is specifically focused on theological works, particularly the writings of St. John Chrysostom from the Nicene and Post-Nicene Fathers.*
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/222a6a75-b067-4df9-839c-d6166dba028b" alt="Image 1">
+  <img src="https://github.com/user-attachments/assets/8a876fd7-eb88-45d8-8681-f8be72aef373" alt="Image 2">
+</div>
+
 ---
 
 ## Repository Structure
