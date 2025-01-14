@@ -161,9 +161,9 @@ def invoke_with_retry(retriever, query, retries=3, delay=2):
                 raise e
 
 
-def search_documents_ensemble_retriever(queries, num_results,chroma1, reranker=False,chroma2="BM25", chroma3=None, multiquery=False):
+def search_documents_hybrid_search(queries, num_results,chroma1, reranker=False,chroma2="BM25", chroma3=None, multiquery=False):
     """
-    search_documents_ensemble_retriever: Using ensemble retriever, this function retrieves documents from the database based on the queries provided.
+    search_documents_hybrid_search: Using ensemble retriever, this function uses multiple retrievers to retrieve documents from the database based on the queries provided.
     args:
     queries: A list of queries to search for.
     num_results: The number of results to retrieve.
@@ -290,7 +290,7 @@ queries, expected_outputs = load_queries_and_expected_outputs(csv_file_path)
 if __name__ == "__main__":
     
     retrieved_documents = search_documents(queries=queries, num_results=3, reranker=False, retriever="naive")
-    #retrieved_documents = search_documents_ensemble_retriever(queries=queries, num_results=2, chroma1=CHROMA_PATH, reranker=True, chroma2="parent_document_retriever", multiquery=True)
+    #retrieved_documents = search_documents_hybrid_search(queries=queries, num_results=2, chroma1=CHROMA_PATH, reranker=True, chroma2="parent_document_retriever", multiquery=True)
     
     retrieval_metrics = {'P', 'success'}
     
