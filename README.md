@@ -49,3 +49,40 @@ The repository contains the following folders:
 3. Dockerize the frontend using the provided Dockerfile in the `frontend` folder.
 
 ---
+
+## Evaluation
+
+### Requirements
+
+The required Python libraries are listed in the `requirements.txt` file inside the `evaluate` folder.
+
+---
+
+### Running the Evaluation
+
+To replicate the evaluation, follow these steps:
+
+1. **Set Up Your API Key**:  
+   Add your API key to the `.env` file located in the root folder.  
+
+2. **Using TruLens Evaluation**:  
+   - Use the `evaluation_trulens.py` file to run evaluations with the TruLens framework.
+   - All the different configurations are pre-defined but commented out for convenience, as running multiple models simultaneously can be time-consuming.
+   - Uncomment the desired configurations to perform specific evaluations.
+
+3. **Using eRAG Evaluation**:  
+   - Use the `evaluation_eRAG.py` file to run evaluations with the eRAG framework.
+   - Choose your desired model to evaluate by following the instructions in the `search_documents` and `search_documents_hybrid_search` methods.
+   - Note: It is only possible to run one evaluation at a time with this file.
+
+---
+
+### Creating a New Database
+
+If you wish to create a new vector database with different parameters:
+
+1. Navigate to the `create_vector_db` folder.  
+2. Use the provided Python files to configure and generate your database.  
+3. The required Python libraries for this process are listed in the `requirements.txt` file within the `create_vector_db` folder.
+
+---
