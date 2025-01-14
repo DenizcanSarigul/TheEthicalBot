@@ -86,7 +86,7 @@ Question:
 provider = OpenAI(model_engine="gpt-4o-mini")
 
 #dataset
-questions_dataset = r"ground_truth_dataset\dataset.csv"
+questions_dataset = r"evaluate\dataset.csv"
 
 with open(questions_dataset, newline='') as csvfile:
     reader = csv.DictReader(csvfile)     

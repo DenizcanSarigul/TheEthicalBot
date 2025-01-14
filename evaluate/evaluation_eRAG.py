@@ -283,7 +283,7 @@ def load_queries_and_expected_outputs(csv_file):
             expected_outputs[query] = [expected_output]  # Wrapping in a list to maintain compatibility
     return queries, expected_outputs
 
-csv_file_path = r'ground_truth_dataset\dataset.csv'
+csv_file_path = r'evaluate\dataset.csv'
 queries, expected_outputs = load_queries_and_expected_outputs(csv_file_path)
 
 

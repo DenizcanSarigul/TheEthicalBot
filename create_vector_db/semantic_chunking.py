@@ -16,7 +16,7 @@ genai.configure(api_key=os.environ["GOOGLE_API_KEY"])
 
 
 CHROMA_PATH = r"chroma_db\chroma_semantic" # Path to the directory where the database will be saved and name of the database
-DATA_PATH = "data"                         # Path to the directory containing the knowledge base documents
+DATA_PATH = r"create_vector_db\data"                         # Path to the directory containing the knowledge base documents
 
 def main():
     generate_data_store()

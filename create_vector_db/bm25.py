@@ -9,7 +9,7 @@ import pickle
 load_dotenv()
 
 
-DATA_PATH = "data" # Path to the directory containing the knowledge base documents 
+DATA_PATH = r"create_vector_db\data" # Path to the directory containing the knowledge base documents 
 
 def main():
     generate_data_store()
