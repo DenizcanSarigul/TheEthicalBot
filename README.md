@@ -1,6 +1,6 @@
-# Reinforcing LLMs with Retrieval-Augmented Generation Techniques to Enhance Accessibility of Complex Texts
+# Enhancing LLMs with Retrieval-Augmented Generation Techniques to Improve Accessibility of Complex Texts
 
-This repository contains the implementation and code for the thesis titled *'Reinforcing LLMs with Retrieval-Augmented Generation Techniques to Enhance Accessibility of Complex Texts.'* The project explores the optimization of Retrieval-Augmented Generation (RAG) pipelines to improve user understanding of complex texts. It features a chatbot application designed to answer user questions, alongside the models, evaluation frameworks, and techniques discussed in the thesis. Detailed documentation is included to support replication and further exploration.
+This repository contains the implementation and code for the thesis titled *'Enhancing LLMs with Retrieval-Augmented Generation Techniques to Improve Accessibility of Complex Texts.'* The project explores the optimization of Retrieval-Augmented Generation (RAG) pipelines to improve user understanding of complex texts. It features a chatbot application designed to answer user questions, alongside the models, evaluation frameworks, and techniques discussed in the thesis. Detailed documentation is included to support replication and further exploration.
 
 *In this study, the knowledge base is specifically focused on theological works, particularly the writings of St. John Chrysostom from the Nicene and Post-Nicene Fathers.*
 
